@@ -1,12 +1,10 @@
 using System;
-using System.Runtime.CompilerServices;
-
-public abstract class ObservableModel<TValue>
+public abstract class ObservableModel
 {
-    public readonly ReactiveProperty<TValue> Value = new();
-    
-    public ObservableModel(TValue value) 
+    public event Action<string> PropertyChanged;
+
+    protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = "")
     {
-        Value.Value = value;
+        PropertyChanged?.Invoke(propertyName);
     }
 }

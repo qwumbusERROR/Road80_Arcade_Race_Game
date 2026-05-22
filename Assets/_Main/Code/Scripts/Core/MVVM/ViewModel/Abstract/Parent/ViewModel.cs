@@ -1,22 +1,14 @@
-public abstract class ViewModel<TValue> 
+using System;
+
+public abstract class ViewModel : IDisposable
 {
-    protected ObservableModel<TValue> _currentModel;
-    public ReactiveProperty<TValue> Value = new();
+    protected readonly ObservableModel _model;
 
-    public ViewModel(ObservableModel<TValue> model)
+    public ViewModel(ObservableModel model)
     {
-        _currentModel = model;
-
-        _currentModel.Value.Subscribe(OnModelChanged);
+        _model = model ?? throw new ArgumentNullException(nameof(model));
     }
 
-    private void OnModelChanged(TValue amount)
-    {
-        Value.Value = amount;
-    }
-
-    public void Dispose()
-    {
-        _currentModel.Value.Unsubscribe(OnModelChanged);
-    }
+    public virtual void Initialize() { }
+    public virtual void Dispose() { }
 }

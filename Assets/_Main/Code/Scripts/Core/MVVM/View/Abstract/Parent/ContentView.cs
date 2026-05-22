@@ -1,5 +1,12 @@
-public abstract class ContentView 
+using System;
+using UnityEngine;
+
+public abstract class ContentView : MonoBehaviour, IDisposable
 {
-    //No bisness logic
-    // yes animation
+    public virtual void Initialize() { }
+    public virtual void Dispose() { }
+    protected virtual void OnDestroy()
+    {
+        Dispose();
+    }
 }
