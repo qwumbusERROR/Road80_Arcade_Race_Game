@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class TextView : ContentView
+public sealed class TextView : ContentView
 {
     [SerializeField] private TextMeshProUGUI _currentText;
 

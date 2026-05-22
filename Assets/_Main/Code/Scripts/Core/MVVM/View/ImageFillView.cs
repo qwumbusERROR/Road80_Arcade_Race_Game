@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class ImageFillView : ContentView
+public sealed class ImageFillView : ContentView
 {
     [SerializeField] private Image _currentImage;
 

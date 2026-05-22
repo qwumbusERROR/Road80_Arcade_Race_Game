@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
-public class SliderView : ContentView
+public sealed class SliderView : ContentView
 {
     [SerializeField] private Slider _currentSlider;
 
