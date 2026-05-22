@@ -734,6 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuService
   _mainMenuPrefab: {fileID: 8600446531216424217, guid: ebdc615ba81ee3944b477f1f91a46410, type: 3}
+  _settingsMenuPrefab: {fileID: 6272565346457414847, guid: 9a7d915364e2b1b4389c980c6ce1eb9b, type: 3}
   _root: {fileID: 1827808503}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

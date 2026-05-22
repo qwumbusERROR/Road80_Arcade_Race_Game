@@ -5,6 +5,8 @@ using UnityEngine;
 public sealed class MenuService : MonoBehaviour
 {
     [SerializeField] private MainMenu _mainMenuPrefab;
+    [SerializeField] private SettingsMenu _settingsMenuPrefab;
+
     [SerializeField] private Transform _root;
 
     private Dictionary<Type, Pool<MenuPanel>> _poolsMenu = new();
@@ -13,18 +15,28 @@ public sealed class MenuService : MonoBehaviour
     public void Initialize()
     {
         _poolsMenu[typeof(MainMenu)] = new Pool<MenuPanel>(_mainMenuPrefab, 1, _root);
+        _poolsMenu[typeof(SettingsMenu)] = new Pool<MenuPanel>(_settingsMenuPrefab, 1, _root);
+
+        ShowPanel<MainMenu>();
     }
 
     public T ShowPanel<T>() where T : MenuPanel
     {
+        if (_currentPanel != null && _currentPanel.GetType() == typeof(T))
+            return (T)_currentPanel;
+
         if (_currentPanel != null)
             HideCurrentPanel();
 
         T panel = GetPanel<T>();
 
-        panel.Initialize();
-        panel.Show();
-        _currentPanel = panel;
+        if (panel != null)
+        {
+            panel.Bind(this);
+            panel.Initialize();   
+            panel.Show();
+            _currentPanel = panel;
+        }
 
         return panel;
     }

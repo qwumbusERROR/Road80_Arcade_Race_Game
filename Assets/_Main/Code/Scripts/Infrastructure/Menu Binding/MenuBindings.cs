@@ -7,7 +7,5 @@ public class MenuBindings : MonoBehaviour
     private void Start()
     {
         _menuService.Initialize();
-
-        _menuService.ShowPanel<MainMenu>();
     }
 }

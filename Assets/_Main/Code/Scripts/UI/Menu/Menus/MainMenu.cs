@@ -1,10 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MenuPanel
 {
-    public virtual void Initiazlize()
+    [SerializeField] private Button _settingsButton;
+
+    public override void Initialize()
     {
         Debug.Log("Initialized MainMenu");
+
+        _settingsButton.onClick.AddListener(OnSettingsClicked);
     }
 
     protected override void OnShow()
@@ -15,5 +20,10 @@ public class MainMenu : MenuPanel
     protected override void OnHide()
     {
         
+    }
+
+    private void OnSettingsClicked()
+    {
+        MenuService.ShowPanel<SettingsMenu>();
     }
 }
