@@ -8,7 +8,7 @@ public class TextView : ContentView
     [SerializeField] private TextMeshProUGUI _currentText;
 
     [SerializeField] private float _animationDuration = 0.6f;     
-    [SerializeField] private Ease _easeType = Ease.OutQuad;     
+    [SerializeField] private Ease _easeType = Ease.Flash;     
 
     private ReactiveProperty<int> _sourceProperty;
     private Tweener _currentTween;
@@ -17,13 +17,13 @@ public class TextView : ContentView
     public void Bind(ReactiveProperty<int> property)
     {
         _sourceProperty = property;
-
-        if (_currentText == null)
-            _currentText = GetComponent<TextMeshProUGUI>();
     }
 
     public override void Initialize()
     {
+        if (_currentText == null)
+            _currentText = GetComponent<TextMeshProUGUI>();
+
         _sourceProperty.Subscribe(UpdateText);
 
         _currentDisplayedValue = _sourceProperty.Value;
