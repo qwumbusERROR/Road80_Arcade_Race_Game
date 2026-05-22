@@ -9,8 +9,12 @@ public sealed class HealthModel : ObservableModel
         get => _currentHealth;
         private set
         {
-            if (_currentHealth == value) return;
-            _currentHealth = value;
+            int clampedValue = Math.Clamp(value, 0, MaxHealth);
+
+            if (_currentHealth == clampedValue)
+                return;
+
+            _currentHealth = clampedValue;
 
             OnPropertyChanged();
         }
@@ -39,7 +43,7 @@ public sealed class HealthModel : ObservableModel
 
     public void SetHealth(int amount)
     {
-        CurrentHealth = Math.Clamp(amount, 0, MaxHealth);
+        CurrentHealth = amount;
     }
 
     public void AddHealth(int amount)

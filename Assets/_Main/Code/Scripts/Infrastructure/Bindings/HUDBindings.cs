@@ -15,4 +15,17 @@ public class HUDBindings : MonoBehaviour
         _vehicleHealth.Initialize(_viewModel);
 
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            _viewModel.TakeDamage(10);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Backspace))
+        {
+            _viewModel.Heal(10);
+        }
+    }
 }

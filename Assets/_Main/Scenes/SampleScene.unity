@@ -1169,6 +1169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextView
   _currentText: {fileID: 1757541596}
+  _animationDuration: 0.6
+  _easeType: 32
 --- !u!114 &1757541596
 MonoBehaviour:
   m_ObjectHideFlags: 0
