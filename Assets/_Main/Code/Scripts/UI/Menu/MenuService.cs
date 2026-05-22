@@ -4,8 +4,16 @@ using UnityEngine;
 
 public sealed class MenuService : MonoBehaviour
 {
+    [SerializeField] private MainMenu _mainMenuPrefab;
+    [SerializeField] private Transform _root;
+
     private Dictionary<Type, Pool<MenuPanel>> _poolsMenu = new();
     private MenuPanel _currentPanel;
+
+    public void Initialize()
+    {
+        _poolsMenu[typeof(MainMenu)] = new Pool<MenuPanel>(_mainMenuPrefab, 1, _root);
+    }
 
     public T ShowPanel<T>() where T : MenuPanel
     {
@@ -13,6 +21,8 @@ public sealed class MenuService : MonoBehaviour
             HideCurrentPanel();
 
         T panel = GetPanel<T>();
+
+        panel.Initialize();
         panel.Show();
         _currentPanel = panel;
 
