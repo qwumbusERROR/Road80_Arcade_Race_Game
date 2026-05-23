@@ -4,22 +4,24 @@ using UnityEngine.UI;
 public class MainMenu : MenuPanel
 {
     [SerializeField] private Button _settingsButton;
-
-    public override void Initialize()
+    protected override void OnInitialized()
     {
-        Debug.Log("Initialized MainMenu");
-
-        _settingsButton.onClick.AddListener(OnSettingsClicked);
+        _settingsButton?.onClick.AddListener(OnSettingsClicked);
     }
 
     protected override void OnShow()
     {
-
+        
     }
 
     protected override void OnHide()
     {
-        
+       
+    }
+
+    protected override void OnDisposes()
+    {
+        _settingsButton?.onClick.RemoveListener(OnSettingsClicked);
     }
 
     private void OnSettingsClicked()

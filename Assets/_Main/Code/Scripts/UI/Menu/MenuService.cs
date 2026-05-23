@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public sealed class MenuService : MonoBehaviour
@@ -10,6 +11,7 @@ public sealed class MenuService : MonoBehaviour
     [SerializeField] private Transform _root;
 
     private Dictionary<Type, Pool<MenuPanel>> _poolsMenu = new();
+    private Dictionary<Type, MenuPanel> _initializedPanels = new();
     private MenuPanel _currentPanel;
 
     public void Initialize()
@@ -33,7 +35,13 @@ public sealed class MenuService : MonoBehaviour
         if (panel != null)
         {
             panel.Bind(this);
-            panel.Initialize();   
+
+            if (!_initializedPanels.ContainsKey(typeof(T)))
+            {
+                panel.Initialized();
+                _initializedPanels[typeof(T)] = panel;
+            }
+
             panel.Show();
             _currentPanel = panel;
         }
@@ -58,5 +66,18 @@ public sealed class MenuService : MonoBehaviour
             pool.Release(_currentPanel);
 
         _currentPanel = null;
+    }
+    private void OnDestroy()
+    {
+        _currentPanel.Hide();
+        _currentPanel = null;
+
+        foreach (var panel in _initializedPanels.Values)
+        {
+            panel.Dispose();
+        }
+
+        _initializedPanels.Clear();
+        _poolsMenu.Clear();
     }
 }
