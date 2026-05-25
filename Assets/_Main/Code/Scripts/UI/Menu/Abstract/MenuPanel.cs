@@ -1,16 +1,15 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public abstract class MenuPanel : MonoBehaviour
+public abstract class MenuPanel : MonoBehaviour, IInitializedController
 {
     protected MenuService MenuService { get; private set; }
+    public event EventHandler Initialized;
+
     public void Bind(MenuService menuService)
     {
         MenuService = menuService;
-    }
-
-    public void Initialized()
-    {
-        OnInitialized();
     }
     public virtual void Show()
     {
@@ -33,4 +32,14 @@ public abstract class MenuPanel : MonoBehaviour
     protected virtual void OnHide() { }
     protected virtual void OnInitialized() { }
     protected virtual void OnDisposes() { }
+    protected virtual Task OnInitializeAsync()
+    {
+        OnInitialized();                    
+        return Task.CompletedTask;
+    }
+    public virtual async Task InitializeAsync()
+    {
+        await OnInitializeAsync();
+        Initialized?.Invoke(this, EventArgs.Empty);
+    }
 }

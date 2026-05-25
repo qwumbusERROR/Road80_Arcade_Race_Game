@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,15 +15,15 @@ public sealed class MenuService : MonoBehaviour
     private Dictionary<Type, MenuPanel> _initializedPanels = new();
     private MenuPanel _currentPanel;
 
-    public void Initialize()
+    public async void Initialize()
     {
         _poolsMenu[typeof(MainMenu)] = new Pool<MenuPanel>(_mainMenuPrefab, 1, _root);
         _poolsMenu[typeof(SettingsMenu)] = new Pool<MenuPanel>(_settingsMenuPrefab, 1, _root);
 
-        ShowPanel<MainMenu>();
+        await ShowPanel<MainMenu>();
     }
 
-    public T ShowPanel<T>() where T : MenuPanel
+    public async Task<T> ShowPanel<T>() where T : MenuPanel
     {
         if (_currentPanel != null && _currentPanel.GetType() == typeof(T))
             return (T)_currentPanel;
@@ -38,7 +39,7 @@ public sealed class MenuService : MonoBehaviour
 
             if (!_initializedPanels.ContainsKey(typeof(T)))
             {
-                panel.Initialized();
+                await panel.InitializeAsync();         
                 _initializedPanels[typeof(T)] = panel;
             }
 

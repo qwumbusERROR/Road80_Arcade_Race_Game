@@ -2,8 +2,8 @@ using System;
 
 public sealed class HealthModel : ObservableModel
 {
-    private int _currentHealth = 0;
-    private int _maxHealth = 0;
+    private int _currentHealth = 100;
+    private int _maxHealth = 100;
     public int CurrentHealth
     {
         get => _currentHealth;
