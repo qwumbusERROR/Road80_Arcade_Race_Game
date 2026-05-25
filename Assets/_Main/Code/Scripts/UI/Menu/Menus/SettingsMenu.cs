@@ -22,8 +22,8 @@ public class SettingsMenu : MenuPanel
     {
         _backButton?.onClick.RemoveListener(OnBackClicked);
     }
-    private void OnBackClicked()
+    private async void OnBackClicked()
     {
-        MenuService.ShowPanel<MainMenu>();
+        await MenuService.ShowPanel<MainMenu>();
     }
 }

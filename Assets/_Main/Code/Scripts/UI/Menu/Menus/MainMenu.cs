@@ -24,8 +24,8 @@ public class MainMenu : MenuPanel
         _settingsButton?.onClick.RemoveListener(OnSettingsClicked);
     }
 
-    private void OnSettingsClicked()
+    private async void OnSettingsClicked()
     {
-        MenuService.ShowPanel<SettingsMenu>();
+        await MenuService.ShowPanel<SettingsMenu>();
     }
 }

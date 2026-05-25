@@ -5,8 +5,6 @@ using UnityEngine;
 public abstract class MenuPanel : MonoBehaviour, IInitializedController
 {
     protected MenuService MenuService { get; private set; }
-    public event EventHandler Initialized;
-
     public void Bind(MenuService menuService)
     {
         MenuService = menuService;
@@ -40,6 +38,5 @@ public abstract class MenuPanel : MonoBehaviour, IInitializedController
     public virtual async Task InitializeAsync()
     {
         await OnInitializeAsync();
-        Initialized?.Invoke(this, EventArgs.Empty);
     }
 }
